@@ -14,11 +14,15 @@ window.geometry('800x600') # 窗口坐标范围是x<=1000,y<=900,from 0
 canvas = Canvas(window, bg='black')  # 主画布
 
 D = 30 # 生成圈的直径
+Color = ['#ffffff' for i in range(1000000)] 
 
 def run():
     x = randint(0,800-D)
     y = randint(0,600-D)
-    canvas.create_oval(x,y,x+D,y+D,fill='white',outline='white')
+    color = genColor()
+    j = canvas.create_oval(x,y,x+D,y+D,fill=color,outline=color)
+    Color[j] = color
+    print (canvas.find_all())
     window.after(600,run)
 
 more = 1
@@ -32,9 +36,20 @@ def change():
         d = abs(x-x0)
         d += 0.1
         canvas.delete(i)
-        canvas.create_oval(x,y,x+d,y+d,fill='white',outline='white')
+        color = Color[i]
+        j = canvas.create_oval(x,y,x+d,y+d,fill=color,outline=color)
+        Color[j] = color
     window.after(20,change) # 每隔20毫秒刷新一次
 
+def genColor():
+    # 随机产生六位１６进制颜色　eg. '#ff180a'
+    ans = '#'
+    array = [str(i) for i in range(10)]
+    array.extend(['a','b','c','d','e','f'])
+    for i in range(6):
+        x = randint(0,15)
+        ans += array[x]
+    return ans
 
 run()
 change()
