@@ -22,7 +22,6 @@ def run():
     color = genColor()
     j = canvas.create_oval(x,y,x+D,y+D,fill=color,outline=color)
     Color[j] = color
-    print (canvas.find_all())
     window.after(600,run)
 
 more = 1
@@ -63,6 +62,7 @@ def onLeftDown(event): # 单击鼠标左键
         if x1 <= x <= x2 and y1 <= y <= y2:
             # 判断鼠标点击区域在某个圈内
             canvas.delete(i) # 删除这个圈
+            return 
 
 canvas.bind('<Button-1>',onLeftDown) # 单击鼠标左键
 canvas.pack(fill=BOTH, expand=YES)
